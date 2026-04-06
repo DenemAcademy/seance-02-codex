@@ -12,7 +12,7 @@ tailwind.config={theme:{extend:{fontFamily:{'space':['Space Grotesk','sans-serif
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 ::selection{background:#4CC0C0;color:#1F0A32}
-body{background:#fff;color:#1F0A32;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{cursor:none;background:#fff;color:#1F0A32;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* Gradients */
 .gradient-text{background:linear-gradient(135deg,#272B5C,#4CC0C0,#30D9DE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:gs 6s ease infinite}
@@ -84,7 +84,7 @@ body{background:#fff;color:#1F0A32;font-family:'Inter',sans-serif;overflow-x:hid
 .glass{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(76,192,192,.15)}
 
 /* Cursor glow */
-.cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(76,192,192,.06),transparent 70%);pointer-events:none;z-index:0;transition:transform .15s ease}
+.cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(76,192,192,.06),transparent 70%);pointer-events:none;z-index:0;transition:transform .15s ease}.custom-cursor{position:fixed;width:32px;height:32px;pointer-events:none;z-index:99999;transition:transform .1s ease;transform:translate(-16px,-16px)}.custom-cursor img{width:32px;height:32px;border-radius:6px}
 
 /* Animated counter */
 .counter{font-variant-numeric:tabular-nums;transition:all .3s ease}
@@ -165,11 +165,7 @@ nav.scrolled{box-shadow:rgba(39,43,92,.08) 0px 4px 12px}
 <div class="sc" id="sc">1 / 51</div>
 <div class="noise"></div>
 <div class="cursor-glow" id="cg"></div>
-
-<!-- Logo flottant fixe -->
-<div class="fixed bottom-16 left-4 z-40 opacity-80 hover:opacity-100 transition-opacity" style="pointer-events:none">
-    <img src="logo-denem.jpeg" alt="DENEM" class="w-10 h-10 rounded-lg" style="box-shadow:rgba(39,43,92,.2) 0px 4px 12px">
-</div>
+<div class="custom-cursor" id="cc"><img src="logo-denem.jpeg" alt=""></div>
 
 <!-- Nav -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 border-b border-sol-lightgray" style="box-shadow:rgba(50,50,93,.06) 0px 2px 5px">
@@ -786,7 +782,7 @@ document.querySelectorAll('.ch,.ch-tilt').forEach(c=>{
 // ==========================================
 const cg=document.getElementById('cg');
 let mx=0,my=0,gx=0,gy=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;const cc=document.getElementById('cc');if(cc)cc.style.transform='translate('+(e.clientX-16)+'px,'+(e.clientY-16)+'px)';});
 (function ag(){gx+=(mx-gx)*.06;gy+=(my-gy)*.06;if(cg)cg.style.transform=`translate(${gx-150}px,${gy-150}px)`;requestAnimationFrame(ag)})();
 
 // ==========================================
