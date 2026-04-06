@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Séance 2 — Codex | DENEM Academy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{'space':['Space Grotesk','sans-serif'],'mono':['JetBrains Mono','monospace'],'inter':['Inter','sans-serif']},colors:{'sol':{'black':'#1F0A32','dark':'#272B5C','accent':'#4CC0C0','cyan':'#30D9DE','navy':'#272B5C','deep':'#1F0A32','green':'#4CC0C0','purple':'#272B5C','orange':'#f97316','gray':'#64748d','lightgray':'#e8edf2','bg':'#ffffff','muted':'#f4f7fa'}}}}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:#4CC0C0;color:#1F0A32}
+body{background:#fff;color:#1F0A32;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* Gradients */
+.gradient-text{background:linear-gradient(135deg,#272B5C,#4CC0C0,#30D9DE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:gs 6s ease infinite}
+.gradient-bg{background:linear-gradient(135deg,#272B5C,#4CC0C0,#30D9DE);background-size:200% 200%;animation:gs 8s ease infinite}
+
+/* Keyframes */
+@keyframes gs{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(3deg)}}
+@keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(12px) rotate(-2deg)}}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.5);opacity:0}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes typewriter{from{width:0}to{width:100%}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes bounceSubtle{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(76,192,192,.2)}50%{box-shadow:0 0 20px rgba(76,192,192,.4)}}
+@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+
+/* Float animations */
+.animate-float{animation:float 6s ease-in-out infinite}
+.animate-float-slow{animation:floatSlow 8s ease-in-out infinite}
+.animate-float-reverse{animation:floatReverse 7s ease-in-out infinite}
+.animate-bounce-subtle{animation:bounceSubtle 3s ease-in-out infinite}
+.animate-glow{animation:glow 3s ease-in-out infinite}
+.animate-wiggle{animation:wiggle 4s ease-in-out infinite}
+.animate-spin-slow{animation:rotate 20s linear infinite}
+
+/* Pulse ring effect */
+.pulse-ring{position:relative}.pulse-ring::after{content:'';position:absolute;inset:-4px;border-radius:inherit;border:2px solid #4CC0C0;animation:pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite}
+
+/* Shimmer loading effect */
+.shimmer{background:linear-gradient(90deg,#f4f7fa 25%,#e8edf2 50%,#f4f7fa 75%);background-size:200% 100%;animation:shimmer 2s ease-in-out infinite}
+
+/* Typewriter */
+.typewriter{overflow:hidden;white-space:nowrap;border-right:2px solid #4CC0C0;animation:typewriter 2s steps(30) forwards,blink .8s step-end infinite}
+
+/* Cursor blink for terminal */
+.blink-cursor::after{content:'▋';animation:blink 1s step-end infinite;color:#4CC0C0}
+
+/* Scroll reveal with variants */
+.sr{opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}.sr.v{opacity:1;transform:translateY(0)}
+.sr-left{opacity:0;transform:translateX(-30px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}.sr-left.v{opacity:1;transform:translateX(0)}
+.sr-right{opacity:0;transform:translateX(30px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}.sr-right.v{opacity:1;transform:translateX(0)}
+.sr-scale{opacity:0;transform:scale(.9);transition:all .8s cubic-bezier(.25,.46,.45,.94)}.sr-scale.v{opacity:1;transform:scale(1)}
+.s1{transition-delay:.1s}.s2{transition-delay:.2s}.s3{transition-delay:.3s}.s4{transition-delay:.4s}.s5{transition-delay:.5s}.s6{transition-delay:.6s}.s7{transition-delay:.7s}
+
+/* Card hover with multiple styles */
+.ch{transition:all .35s cubic-bezier(.25,.46,.45,.94)}.ch:hover{transform:translateY(-6px);box-shadow:rgba(39,43,92,.12) 0px 20px 40px -8px,rgba(76,192,192,.08) 0px 8px 20px -6px}
+.ch-scale{transition:all .3s ease}.ch-scale:hover{transform:scale(1.03);box-shadow:rgba(39,43,92,.1) 0px 15px 30px -5px}
+.ch-glow{transition:all .3s ease}.ch-glow:hover{box-shadow:0 0 0 3px rgba(76,192,192,.15),rgba(39,43,92,.1) 0px 10px 25px -5px}
+.ch-tilt{transition:all .3s ease;transform-style:preserve-3d}
+
+/* Magnetic button effect */
+.magnetic{transition:transform .2s ease}
+
+/* Underline animation on links */
+.link-anim{position:relative;text-decoration:none}.link-anim::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#4CC0C0;transition:width .3s ease}.link-anim:hover::after{width:100%}
+
+/* Gradient border effect */
+.gradient-border{position:relative;background:#fff;border-radius:8px}.gradient-border::before{content:'';position:absolute;inset:-2px;border-radius:10px;background:linear-gradient(135deg,#272B5C,#4CC0C0,#30D9DE);z-index:-1;background-size:200% 200%;animation:gs 4s ease infinite}
+
+/* Glassmorphism card */
+.glass{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(76,192,192,.15)}
+
+/* Cursor glow */
+.cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(76,192,192,.06),transparent 70%);pointer-events:none;z-index:0;transition:transform .15s ease}
+
+/* Animated counter */
+.counter{font-variant-numeric:tabular-nums;transition:all .3s ease}
+
+/* Staggered list animation */
+.stagger-list>*{opacity:0;transform:translateY(10px);transition:all .5s ease}.stagger-list.v>*{opacity:1;transform:translateY(0)}
+.stagger-list>*:nth-child(1){transition-delay:.05s}.stagger-list>*:nth-child(2){transition-delay:.1s}.stagger-list>*:nth-child(3){transition-delay:.15s}.stagger-list>*:nth-child(4){transition-delay:.2s}.stagger-list>*:nth-child(5){transition-delay:.25s}.stagger-list>*:nth-child(6){transition-delay:.3s}.stagger-list>*:nth-child(7){transition-delay:.35s}.stagger-list>*:nth-child(8){transition-delay:.4s}
+
+/* Parallax layer */
+.parallax{transition:transform .1s linear}
+
+/* Smooth underline reveal */
+.reveal-line{position:relative;display:inline-block}.reveal-line::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:#4CC0C0;transform:scaleX(0);transform-origin:right;transition:transform .4s ease}.reveal-line.v::after{transform:scaleX(1);transform-origin:left}
+
+/* Dot pattern overlay */
+.dots-overlay{position:relative}.dots-overlay::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(76,192,192,.07) 1px,transparent 1px);background-size:16px 16px;pointer-events:none;border-radius:inherit}
+
+/* Tags */
+.tag{display:inline-block;padding:5px 14px;font-size:.7rem;font-weight:600;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;border:1.5px solid;border-radius:4px;transition:all .3s ease}.tag:hover{transform:translateY(-2px)}
+.tb{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:.72rem;font-weight:500;font-family:'JetBrains Mono',monospace;border:1.5px solid;border-radius:4px;transition:all .3s ease}.tb:hover{transform:translateY(-1px)}
+
+/* Progress bar */
+.progress-bar{position:fixed;top:0;left:0;height:3px;z-index:9999;transition:width .15s ease}
+
+/* Nav */
+nav{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:all .3s ease}
+nav.scrolled{box-shadow:rgba(39,43,92,.08) 0px 4px 12px}
+
+/* Code blocks */
+.code{background:#1F0A32;color:#e8edf2;border-left:4px solid #4CC0C0;padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.8;border-radius:6px;transition:all .3s ease}.code:hover{box-shadow:rgba(76,192,192,.1) 0px 8px 25px}
+.code-inline{background:#f4f7fa;color:#272B5C;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;border-radius:4px;border:1px solid #e8edf2;transition:all .2s ease}.code-inline:hover{background:#edf1f6;border-color:#4CC0C0}
+.cmd{background:#1F0A32;color:#30D9DE;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:.85rem;border-radius:6px;display:flex;align-items:center;gap:8px;transition:all .3s ease;cursor:pointer;position:relative;user-select:all}.cmd:hover{transform:translateX(4px);box-shadow:rgba(76,192,192,.15) 0px 4px 15px;border:1px solid rgba(76,192,192,.3)}.cmd:active{transform:scale(.98)}
+.cmd::before{content:'$';color:#64748d}
+.cmd::after{content:'cliquer pour copier';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:.6rem;color:#64748d;opacity:.5;transition:all .3s ease;pointer-events:none}
+.cmd:hover::after{opacity:1;color:#4CC0C0}
+.cmd.copied::after{content:'copié !';color:#30D9DE;opacity:1;font-weight:600}
+.cmd.copied{box-shadow:0 0 0 2px rgba(76,192,192,.3),rgba(76,192,192,.15) 0px 4px 15px}
+
+/* Cards */
+.card{background:#fff;border:1px solid #e8edf2;border-radius:8px;box-shadow:rgba(39,43,92,.06) 0px 2px 5px,rgba(0,0,0,.03) 0px 1px 3px;transition:all .35s ease}
+.card-accent{background:#fff;border:1.5px solid #4CC0C0;border-radius:8px;box-shadow:rgba(76,192,192,.08) 0px 4px 12px;transition:all .35s ease}
+.card-green{background:#fff;border:1.5px solid #30D9DE;border-radius:8px;box-shadow:rgba(48,217,222,.08) 0px 4px 12px;transition:all .35s ease}
+.card-orange{background:#fff;border:1.5px solid #f97316;border-radius:8px;box-shadow:rgba(249,115,22,.06) 0px 4px 12px;transition:all .35s ease}
+.card-light{background:#fff;border:1px solid #e8edf2;border-radius:6px;transition:all .3s ease}.card-light:hover{border-color:#4CC0C0;box-shadow:rgba(76,192,192,.06) 0px 4px 12px}
+
+/* Step numbers */
+.step{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;flex-shrink:0;border:1.5px solid;border-radius:50%;transition:all .3s ease}.step:hover{transform:scale(1.1)}
+
+/* Section counter */
+.sc{position:fixed;bottom:16px;right:16px;z-index:50;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#64748d;background:#fff;border:1px solid #e8edf2;padding:4px 10px;border-radius:4px;box-shadow:rgba(39,43,92,.06) 0px 2px 5px;transition:all .3s ease}
+
+/* Terminal */
+.terminal{background:#1F0A32;border-radius:8px;overflow:hidden;transition:all .4s ease}.terminal:hover{box-shadow:rgba(31,10,50,.3) 0px 20px 40px -10px,rgba(76,192,192,.08) 0px 0px 0px 1px}
+.terminal-bar{background:#272B5C;padding:8px 16px;display:flex;align-items:center;gap:6px}
+.terminal-dot{width:10px;height:10px;border-radius:50%;transition:all .2s ease}
+.terminal:hover .terminal-dot:nth-child(1){transform:scale(1.2)}.terminal:hover .terminal-dot:nth-child(2){transform:scale(1.2);transition-delay:.05s}.terminal:hover .terminal-dot:nth-child(3){transform:scale(1.2);transition-delay:.1s}
+.terminal-body{padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.9;color:#e8edf2}
+.terminal-prompt{color:#30D9DE}
+.terminal-cmd{color:#fff}
+.terminal-output{color:#94a3b8}
+.terminal-accent{color:#4CC0C0}
+
+/* Emoji */
+.emoji{filter:drop-shadow(1px 1px 0 rgba(39,43,92,.1));transition:transform .3s ease}.emoji:hover{transform:scale(1.2) rotate(-5deg)}
+
+/* Smooth scroll indicator */
+.scroll-hint{animation:bounceSubtle 2.5s ease-in-out infinite}
+
+/* Noise texture overlay */
+.noise{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;opacity:.015;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+</style>
+</head>
+
+
+<body>
+
+<div class="progress-bar gradient-bg" id="pb"></div>
+<div class="sc" id="sc">1 / 50</div>
+<div class="noise"></div>
+<div class="cursor-glow" id="cg"></div>
+
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 border-b border-sol-lightgray" style="box-shadow:rgba(50,50,93,.06) 0px 2px 5px">
+<div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
+    <div class="flex items-center gap-3">
+        <div class="w-7 h-7 bg-sol-navy flex items-center justify-center font-mono font-bold text-xs text-white rounded">D</div>
+        <span class="font-space font-bold text-sm">DENEM Academy</span>
+        <span class="text-sol-gray text-xs">/</span>
+        <span class="text-sol-gray text-xs font-mono">Séance 02</span>
+    </div>
+    <span class="tag border-sol-accent text-sol-accent">Acte 1 — Maîtriser</span>
+</div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 1 : BIENVENUE -->
+<!-- ============================================================ -->
+
+<section data-s="1" class="min-h-screen flex items-center justify-center relative pt-14 overflow-hidden">
+<div class="absolute top-24 left-12 w-14 h-14 border-2 border-sol-cyan/15 rounded-lg rotate-6 animate-float hidden lg:block"></div>
+<div class="absolute bottom-40 right-16 w-10 h-10 border-2 border-sol-navy/10 rounded-full animate-float-slow hidden lg:block"></div>
+<div class="absolute inset-0 dots-overlay opacity-50"></div>
+<div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+    <div class="sr"><span class="tag border-sol-cyan text-sol-cyan pulse-ring">Séance 2 sur 24</span></div>
+    <h1 class="sr s1 font-space font-bold text-5xl sm:text-6xl md:text-7xl leading-[.92] mt-6 mb-6">
+        <span class="gradient-text">Codex.</span><br><span class="text-sol-gray text-3xl sm:text-4xl">L'agent qui code tout seul.</span>
+    </h1>
+    <p class="sr s2 text-lg text-sol-gray max-w-xl mx-auto leading-relaxed mb-8">Dans la séance 1 t'as découvert Claude Code — ton outil interactif. Aujourd'hui on voit Codex. C'est différent : tu lances une tâche, tu pars faire autre chose, tu reviens au résultat. C'est ton deuxième super-pouvoir.</p>
+    <div class="sr s3 tb border-sol-cyan text-sol-cyan mx-auto animate-glow"><span class="w-1.5 h-1.5 bg-sol-cyan rounded-full"></span>35-45 min</div>
+    <div class="sr s4 mt-16 scroll-hint"><div class="w-6 h-10 border-2 border-sol-navy/20 rounded-full mx-auto flex items-start justify-center p-1"><div class="w-1 h-2.5 bg-sol-cyan/40 rounded-full" style="animation:bounceSubtle 2s ease-in-out infinite"></div></div></div>
+</div>
+</section>
+
+<!-- Image Codex splash -->
+<section data-s="2" class="py-8">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card p-3 ch" style="overflow:hidden">
+        <img src="https://github.com/openai/codex/raw/main/.github/codex-cli-splash.png" alt="Codex CLI" class="w-full rounded" style="border:1px solid #e8edf2" loading="lazy">
+        <p class="text-sol-gray text-xs mt-2 text-center italic">Codex CLI — l'agent de code autonome d'OpenAI</p>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 2 : LA DIFFÉRENCE AVEC CLAUDE CODE -->
+<!-- ============================================================ -->
+
+<section data-s="3" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">En séance 1, t'as appris Claude Code.<br><span class="text-sol-gray">Codex c'est l'inverse.</span></h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Claude Code c'est interactif — tu bosses avec lui en direct, tu vois ce qu'il fait, tu ajustes en temps réel. Codex c'est autonome — tu lui donnes une mission, il part dans son coin, il bosse tout seul, et il te livre le résultat.</p>
+</div>
+</section>
+
+<section data-s="4" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-5">
+            <div class="font-bold text-sm mb-3" style="color:#4CC0C0">Claude Code (séance 1)</div>
+            <div class="text-sol-gray text-sm space-y-2">
+                <p>→ Tu bosses <strong>avec</strong> lui</p>
+                <p>→ Tu vois tout en direct</p>
+                <p>→ Tu ajustes au fur et à mesure</p>
+                <p>→ C'est un dialogue</p>
+                <p>→ Idéal pour les tâches qui demandent ton jugement</p>
+            </div>
+        </div>
+        <div class="card-accent p-5">
+            <div class="font-bold text-sm mb-3" style="color:#4CC0C0">Codex (cette séance)</div>
+            <div class="text-sol-gray text-sm space-y-2">
+                <p>→ Tu lances et tu <strong>pars</strong></p>
+                <p>→ Il bosse dans un sandbox isolé</p>
+                <p>→ Tu reviens au résultat fini</p>
+                <p>→ C'est une délégation</p>
+                <p>→ Idéal pour les tâches claires et bien définies</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section data-s="5" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card-green p-6">
+        <h3 class="font-bold text-lg mb-3">Pourquoi c'est utile ?</h3>
+        <p class="text-sol-gray leading-relaxed mb-3">Imagine : tu travailles sur un site avec Claude Code. En même temps, tu as besoin de créer un script de scraping. Au lieu de faire les deux à la suite, tu lances le scraping sur Codex et tu continues ton site avec Claude Code. Codex bosse en parallèle. Quand t'as fini ton site, le script de scraping est prêt.</p>
+        <p class="text-sol-gray leading-relaxed font-bold">Tu fais 2 trucs en même temps au lieu d'un. C'est ça la puissance de Codex.</p>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 3 : C'EST QUOI EXACTEMENT -->
+<!-- ============================================================ -->
+
+<section data-s="6" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">C'est quoi Codex exactement ?</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Codex c'est un agent de code open-source créé par OpenAI. Il tourne dans ton terminal, lit ton code, fait des modifications, exécute des commandes — le tout dans un sandbox sécurisé. Il peut pas casser quoi que ce soit sur ton ordi.</p>
+</div>
+</section>
+
+<section data-s="7" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-4">Les points clés</h3>
+    <div class="space-y-3">
+        <div class="card-light p-4 ch"><div class="flex items-start gap-3"><div class="text-xl emoji">🔒</div><div><span class="font-bold text-sm">Sandbox sécurisé</span><p class="text-sol-gray text-xs mt-1">Codex travaille dans un environnement isolé. Il peut pas toucher à tes fichiers système, installer des trucs bizarres, ou faire n'importe quoi. C'est sécurisé au niveau du système d'exploitation.</p></div></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-start gap-3"><div class="text-xl emoji">⚡</div><div><span class="font-bold text-sm">Rapide</span><p class="text-sol-gray text-xs mt-1">Construit en Rust. C'est pas du JavaScript lent — c'est optimisé pour la vitesse. 240+ tokens par seconde.</p></div></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-start gap-3"><div class="text-xl emoji">🌐</div><div><span class="font-bold text-sm">Open source</span><p class="text-sol-gray text-xs mt-1">Le code est sur GitHub, tout est transparent. Tu peux voir exactement ce qu'il fait.</p></div></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-start gap-3"><div class="text-xl emoji">🤖</div><div><span class="font-bold text-sm">Multi-agents</span><p class="text-sol-gray text-xs mt-1">Tu peux lancer plusieurs Codex en parallèle sur le même projet. Chacun travaille dans son propre espace sans conflits.</p></div></div></div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 4 : COMBIEN ÇA COÛTE -->
+<!-- ============================================================ -->
+
+<section data-s="8" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Combien ça coûte ?</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Bonne nouvelle : si t'as déjà un abonnement ChatGPT Plus, Pro, Business ou Enterprise — Codex est inclus. Pas de supplément.</p>
+</div>
+</section>
+
+<section data-s="9" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="space-y-4">
+        <div class="card-accent p-6 ch">
+            <div class="flex items-center justify-between mb-3"><div class="font-bold text-lg">ChatGPT Plus</div><div class="font-space font-bold text-xl" style="color:#4CC0C0">20$/mois</div></div>
+            <p class="text-sol-gray text-sm">Tu as déjà accès à Codex. Suffisant pour commencer.</p>
+        </div>
+        <div class="card p-6 ch">
+            <div class="flex items-center justify-between mb-3"><div class="font-bold text-lg">ChatGPT Pro</div><div class="font-space font-bold text-xl text-sol-gray">200$/mois</div></div>
+            <p class="text-sol-gray text-sm">Plus de capacité. Pour les utilisateurs intensifs.</p>
+        </div>
+        <div class="card p-6 ch">
+            <div class="flex items-center justify-between mb-3"><div class="font-bold text-lg">API (paiement à l'usage)</div><div class="font-space font-bold text-xl text-sol-gray">~1.50$/MTok</div></div>
+            <p class="text-sol-gray text-sm">Pour l'automatisation et les gros volumes. On voit ça plus tard.</p>
+        </div>
+    </div>
+    <p class="text-sol-gray text-sm mt-4 italic">Si t'as déjà le Pro Claude à 20€/mois (séance 1) + ChatGPT Plus à 20$/mois, t'as accès aux deux. 40€/mois total pour Claude Code + Codex. C'est le setup recommandé.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 5 : ON INSTALLE -->
+<!-- ============================================================ -->
+
+<section data-s="10" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">On installe.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Aussi simple que Claude Code. Une commande et c'est fait.</p>
+</div>
+</section>
+
+<section data-s="11" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-4">Installer Codex CLI</h3>
+    <div class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div class="card-accent p-5 ch">
+            <div class="font-bold text-sm mb-3">npm (toutes plateformes)</div>
+            <div class="cmd text-xs">npm i -g @openai/codex</div>
+        </div>
+        <div class="card-accent p-5 ch">
+            <div class="font-bold text-sm mb-3">Homebrew (Mac)</div>
+            <div class="cmd text-xs">brew install --cask codex</div>
+        </div>
+    </div>
+    <p class="text-sol-gray text-sm mb-4">Vérifie que c'est installé :</p>
+    <div class="cmd">codex --version</div>
+</div>
+</section>
+
+<section data-s="12" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-4">Se connecter</h3>
+    <p class="text-sol-gray text-sm mb-4">Tape <span class="code-inline">codex</span> et il te propose de te connecter :</p>
+    <div class="terminal">
+        <div class="terminal-bar"><div class="terminal-dot" style="background:#ff5f57"></div><div class="terminal-dot" style="background:#febc2e"></div><div class="terminal-dot" style="background:#28c840"></div><span class="text-gray-500 text-xs ml-2 font-mono">Terminal</span></div>
+        <div class="terminal-body">
+            <p><span class="terminal-prompt">$</span> <span class="terminal-cmd">codex</span></p>
+            <p class="terminal-output mt-2">Welcome to Codex CLI!</p>
+            <p class="terminal-output">Sign in with your ChatGPT account or API key...</p>
+            <p class="terminal-output mt-2">✓ <span style="color:#30D9DE">Authenticated successfully</span></p>
+            <p class="terminal-output mt-2">Ready. What would you like to build?</p>
+        </div>
+    </div>
+    <p class="text-sol-gray text-xs mt-4 italic">Tu te connectes avec ton compte ChatGPT (celui où t'as l'abonnement Plus ou Pro). Une seule fois.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 6 : LES 3 MODES -->
+<!-- ============================================================ -->
+
+<section data-s="13" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Les 3 modes de Codex.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">C'est ce qui rend Codex spécial. Tu choisis le niveau d'autonomie que tu lui donnes.</p>
+</div>
+</section>
+
+<section data-s="14" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="space-y-4">
+        <div class="card p-6 ch">
+            <div class="flex items-center gap-3 mb-3"><span class="tag border-sol-gray text-sol-gray">Mode 1</span><div class="font-bold text-lg">Suggest</div></div>
+            <p class="text-sol-gray text-sm mb-2">Codex te montre ce qu'il veut faire mais ne fait rien. Tu valides chaque action.</p>
+            <div class="cmd text-xs">codex --suggest "Ajoute un formulaire de contact"</div>
+            <p class="text-sol-gray text-xs mt-2 italic">Pour quand tu veux garder le contrôle total. Il propose, tu décides.</p>
+        </div>
+        <div class="card-accent p-6 ch">
+            <div class="flex items-center gap-3 mb-3"><span class="tag border-sol-accent text-sol-accent">Mode 2</span><div class="font-bold text-lg">Auto Edit</div></div>
+            <p class="text-sol-gray text-sm mb-2">Codex modifie les fichiers automatiquement mais te demande avant d'exécuter des commandes.</p>
+            <div class="cmd text-xs">codex --auto-edit "Refactorise le fichier utils.js"</div>
+            <p class="text-sol-gray text-xs mt-2 italic">Le bon compromis. Il écrit le code, tu valides les actions système.</p>
+        </div>
+        <div class="card-green p-6 ch">
+            <div class="flex items-center gap-3 mb-3"><span class="tag border-sol-green text-sol-green" style="border-color:#30D9DE;color:#30D9DE">Mode 3</span><div class="font-bold text-lg">Full Auto</div></div>
+            <p class="text-sol-gray text-sm mb-2">Codex fait tout tout seul. Il modifie, exécute, teste — tu reviens au résultat fini.</p>
+            <div class="cmd text-xs">codex --full-auto "Crée un script de scraping pour Google Maps"</div>
+            <p class="text-sol-gray text-xs mt-2 italic">Le mode "je lance et je pars". C'est là que Codex brille vraiment.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<section data-s="15" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card-green p-6">
+        <h4 class="font-bold mb-3">Mon conseil</h4>
+        <p class="text-sol-gray text-sm leading-relaxed">Commence avec <strong>Auto Edit</strong> pour te familiariser. Une fois que t'as confiance, passe en <strong>Full Auto</strong> pour les tâches claires. Utilise <strong>Suggest</strong> quand tu veux juste voir ce qu'il propose avant de valider.</p>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 7 : COMMENT L'UTILISER -->
+<!-- ============================================================ -->
+
+<section data-s="16" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Comment l'utiliser concrètement.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Tu lances Codex, tu décris ce que tu veux, et tu choisis ton mode. Voilà à quoi ça ressemble.</p>
+</div>
+</section>
+
+<section data-s="17" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-4">Le mode interactif</h3>
+    <p class="text-sol-gray text-sm mb-4">Tu tapes <span class="code-inline">codex</span> et tu te retrouves dans une interface plein écran :</p>
+    <div class="terminal">
+        <div class="terminal-bar"><div class="terminal-dot" style="background:#ff5f57"></div><div class="terminal-dot" style="background:#febc2e"></div><div class="terminal-dot" style="background:#28c840"></div><span class="text-gray-500 text-xs ml-2 font-mono">Codex CLI</span></div>
+        <div class="terminal-body">
+            <p class="terminal-accent">Codex CLI v1.2.0 · o3 · Full Auto</p>
+            <p class="terminal-output mt-2">Reading repository...</p>
+            <p class="terminal-output">Found 12 files in /mon-projet</p>
+            <p class="mt-3"><span class="terminal-prompt">></span> <span class="terminal-cmd">Crée un script Python qui scrape les 50 premiers restaurants sur Google Maps à Lyon. Nom, adresse, téléphone, note. Exporte en CSV.</span></p>
+            <p class="terminal-output mt-3">Planning...</p>
+            <p class="terminal-output">1. Create scraper.py with Google Maps API</p>
+            <p class="terminal-output">2. Add CSV export function</p>
+            <p class="terminal-output">3. Run and test</p>
+            <p class="terminal-output mt-2">Executing step 1...</p>
+            <p class="terminal-output">✓ Created scraper.py (47 lines)</p>
+            <p class="terminal-output">Executing step 2...</p>
+            <p class="terminal-output">✓ Added export_csv() function</p>
+            <p class="terminal-output">Executing step 3...</p>
+            <p class="terminal-output">✓ Script executed — 50 restaurants saved to restaurants_lyon.csv</p>
+        </div>
+    </div>
+    <p class="text-sol-gray text-sm mt-4">Tu vois ? Il planifie, exécute étape par étape, et te livre le résultat. Toi t'as rien fait.</p>
+</div>
+</section>
+
+<section data-s="18" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-4">Le mode one-shot</h3>
+    <p class="text-sol-gray text-sm mb-4">Tu veux pas ouvrir l'interface ? Passe ta commande directement :</p>
+    <div class="cmd">codex --full-auto "Ajoute un mode sombre au site avec un toggle dans le header"</div>
+    <p class="text-sol-gray text-xs mt-4">Codex lit ton projet, comprend la structure, fait les modifs, et c'est terminé. Tu vérifies le résultat.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 8 : FONCTIONNALITÉS AVANCÉES -->
+<!-- ============================================================ -->
+
+<section data-s="19" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Les fonctionnalités avancées.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Codex a des trucs en plus que Claude Code n'a pas. Voilà les plus importants.</p>
+</div>
+</section>
+
+<section data-s="20" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-6 ch"><div class="flex items-start gap-3"><div class="text-2xl emoji">🔍</div><div><h4 class="font-bold mb-2">Recherche web intégrée</h4><p class="text-sol-gray text-sm">Codex peut chercher sur le web pendant qu'il code. Il trouve de la documentation, des exemples, des solutions — sans que tu aies besoin de lui fournir.</p></div></div></div></div></section>
+
+<section data-s="21" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-6 ch"><div class="flex items-start gap-3"><div class="text-2xl emoji">👥</div><div><h4 class="font-bold mb-2">Multi-agents</h4><p class="text-sol-gray text-sm">Tu peux lancer plusieurs Codex en même temps sur le même projet. Chacun travaille dans son propre espace (un git worktree isolé). Pas de conflits. C'est comme avoir une équipe de développeurs qui bossent en parallèle.</p></div></div></div></div></section>
+
+<section data-s="22" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-6 ch"><div class="flex items-start gap-3"><div class="text-2xl emoji">🖼️</div><div><h4 class="font-bold mb-2">Images et screenshots</h4><p class="text-sol-gray text-sm">Tu peux coller un screenshot de maquette et dire "construis ça". Codex comprend l'image et génère le code qui correspond. PNG, JPEG, c'est supporté.</p></div></div></div></div></section>
+
+<section data-s="23" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-6 ch"><div class="flex items-start gap-3"><div class="text-2xl emoji">🎨</div><div><h4 class="font-bold mb-2">Thèmes</h4><p class="text-sol-gray text-sm">Tape <span class="code-inline">/theme</span> pour personnaliser l'apparence du terminal. C'est du détail mais c'est agréable quand tu bosses dessus toute la journée.</p></div></div></div></div></section>
+
+<section data-s="24" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-6 ch"><div class="flex items-start gap-3"><div class="text-2xl emoji">📁</div><div><h4 class="font-bold mb-2">Le fichier AGENTS.md</h4><p class="text-sol-gray text-sm">Comme le CLAUDE.md pour Claude Code, tu peux créer un fichier <span class="code-inline">AGENTS.md</span> à la racine de ton projet. Codex le lit et sait comment bosser sur ton projet. C'est compatible avec tous les agents IA.</p></div></div></div></div></section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 9 : QUAND UTILISER CODEX VS CLAUDE CODE -->
+<!-- ============================================================ -->
+
+<section data-s="25" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Codex ou Claude Code ?</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">C'est LA question. Voilà comment choisir.</p>
+</div>
+</section>
+
+<section data-s="26" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left">
+        <thead><tr class="border-b-2 border-sol-deep"><th class="py-3 px-3 font-mono text-xs text-sol-gray">SITUATION</th><th class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">UTILISE</th><th class="py-3 px-3 font-mono text-xs text-sol-gray">POURQUOI</th></tr></thead>
+        <tbody>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux créer un site en direct</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Claude Code</td><td class="py-3 px-3 text-sol-gray text-xs">Tu veux voir et ajuster en temps réel</td></tr>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux un script de scraping</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Codex</td><td class="py-3 px-3 text-sol-gray text-xs">Tâche claire, autonomie totale</td></tr>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux corriger un bug complexe</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Claude Code</td><td class="py-3 px-3 text-sol-gray text-xs">Tu veux guider le debug étape par étape</td></tr>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux refactorer tout un projet</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Codex</td><td class="py-3 px-3 text-sol-gray text-xs">Gros boulot mécanique, autonomie</td></tr>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux écrire des tests</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Codex</td><td class="py-3 px-3 text-sol-gray text-xs">Tâche claire et répétitive</td></tr>
+            <tr class="border-b border-sol-lightgray"><td class="py-3 px-3">Je veux explorer un code que je connais pas</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Claude Code</td><td class="py-3 px-3 text-sol-gray text-xs">Tu veux poser des questions et comprendre</td></tr>
+            <tr><td class="py-3 px-3">Je veux faire 2 trucs en même temps</td><td class="py-3 px-3 font-mono text-xs" style="color:#4CC0C0">Les deux</td><td class="py-3 px-3 text-sol-gray text-xs">Claude Code en direct + Codex en parallèle</td></tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+</section>
+
+<section data-s="27" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card-green p-6">
+        <h4 class="font-bold mb-3">La règle simple</h4>
+        <p class="text-sol-gray text-sm leading-relaxed"><strong>Tu as besoin de ton jugement ?</strong> → Claude Code (interactif)<br><strong>La tâche est claire et bien définie ?</strong> → Codex (autonome)<br><strong>Tu veux aller vite ?</strong> → Les deux en même temps</p>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 10 : LES COMMANDES -->
+<!-- ============================================================ -->
+
+<section data-s="28" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Les commandes essentielles.</h2>
+</div>
+</section>
+
+<section data-s="29" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="space-y-3">
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">/help</span><span class="text-sol-gray text-sm">Toutes les commandes</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">/clear</span><span class="text-sol-gray text-sm">Effacer la conversation</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">/theme</span><span class="text-sol-gray text-sm">Changer le thème du terminal</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">@fichier</span><span class="text-sol-gray text-sm">Référencer un fichier dans ton message</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">Ctrl+L</span><span class="text-sol-gray text-sm">Vider l'écran (sans effacer la conversation)</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">Enter</span><span class="text-sol-gray text-sm">Injecter des instructions pendant que Codex tourne</span></div></div>
+        <div class="card-light p-4 ch"><div class="flex items-center gap-3"><span class="code-inline">Tab</span><span class="text-sol-gray text-sm">Mettre un prompt en file d'attente pour le tour suivant</span></div></div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 11 : EXEMPLES CONCRETS -->
+<!-- ============================================================ -->
+
+<section data-s="30" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Des exemples concrets.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">Voilà des vraies commandes que tu pourrais lancer sur Codex.</p>
+</div>
+</section>
+
+<section data-s="31" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-5 ch"><div class="font-bold text-sm mb-2">Créer un projet complet</div><div class="cmd mt-2">codex --full-auto "Crée une API REST en Node.js avec Express. 3 endpoints : GET /users, POST /users, DELETE /users/:id. Avec validation et gestion d'erreurs."</div></div></div></section>
+
+<section data-s="32" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-5 ch"><div class="font-bold text-sm mb-2">Écrire des tests</div><div class="cmd mt-2">codex --full-auto "Lis tout le projet et écris des tests unitaires pour chaque fonction. Utilise Jest. Couvre au moins 80% du code."</div></div></div></section>
+
+<section data-s="33" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-5 ch"><div class="font-bold text-sm mb-2">Refactorer du code</div><div class="cmd mt-2">codex --auto-edit "Refactorise le fichier utils.js : sépare les fonctions en modules, ajoute des types TypeScript, et commente chaque fonction."</div></div></div></section>
+
+<section data-s="34" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-5 ch"><div class="font-bold text-sm mb-2">Corriger un bug automatiquement</div><div class="cmd mt-2">codex --full-auto "Le formulaire de contact renvoie une erreur 500. Trouve le bug, corrige-le, et vérifie que ça marche."</div></div></div></section>
+
+<section data-s="35" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card p-5 ch"><div class="font-bold text-sm mb-2">Générer de la documentation</div><div class="cmd mt-2">codex --full-auto "Lis tout le code source et génère un README.md complet avec : description du projet, installation, utilisation, et exemples."</div></div></div></section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 12 : LES LIMITES -->
+<!-- ============================================================ -->
+
+<section data-s="36" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Les limites.</h2>
+</div>
+</section>
+
+<section data-s="37" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card-orange p-6 ch"><h4 class="font-bold mb-2">C'est autonome, pas parfait</h4><p class="text-sol-gray text-sm">Codex peut partir dans la mauvaise direction sans que tu le voies (parce que t'es pas là). Vérifie toujours le résultat. Surtout en mode Full Auto.</p></div></div></section>
+
+<section data-s="38" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card-orange p-6 ch"><h4 class="font-bold mb-2">Les tâches vagues marchent mal</h4><p class="text-sol-gray text-sm">"Améliore mon code" → il sait pas ce que tu veux. "Ajoute la gestion d'erreurs dans le fichier api.js pour les endpoints POST et DELETE" → ça marche. Plus c'est précis, mieux c'est.</p></div></div></section>
+
+<section data-s="39" class="py-8"><div class="max-w-3xl mx-auto px-4 sr"><div class="card-green p-6 ch"><h4 class="font-bold mb-2">La bonne pratique</h4><p class="text-sol-gray text-sm">Utilise Codex pour des tâches claires et bien définies. Si la tâche est floue ou demande de la créativité, passe par Claude Code où tu peux guider en direct.</p></div></div></section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 13 : COMMENT COMBINER LES DEUX -->
+<!-- ============================================================ -->
+
+<section data-s="40" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-6">Le combo parfait : Claude Code + Codex.</h2>
+    <p class="text-sol-gray text-lg leading-relaxed">C'est là que ça devient vraiment puissant. Tu utilises les deux en même temps.</p>
+</div>
+</section>
+
+<section data-s="41" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h3 class="font-space font-bold text-xl mb-6">Exemple concret</h3>
+    <div class="space-y-3">
+        <div class="flex items-start gap-4"><div class="step border-sol-accent text-sol-accent">1</div><div><p class="text-sol-gray text-sm"><strong>9h00</strong> — Tu ouvres Claude Code et tu commences à construire ton site web. Tu travailles en direct, tu ajustes le design, tu écris le contenu.</p></div></div>
+        <div class="flex items-start gap-4"><div class="step border-sol-cyan text-sol-cyan" style="border-color:#30D9DE;color:#30D9DE">2</div><div><p class="text-sol-gray text-sm"><strong>9h15</strong> — En parallèle, tu lances Codex en Full Auto : "Crée un script de scraping pour les restaurants de Lyon". Codex part bosser dans son coin.</p></div></div>
+        <div class="flex items-start gap-4"><div class="step border-sol-accent text-sol-accent">3</div><div><p class="text-sol-gray text-sm"><strong>9h15-10h30</strong> — Tu continues ton site avec Claude Code. Tu t'occupes pas de Codex.</p></div></div>
+        <div class="flex items-start gap-4"><div class="step border-sol-cyan text-sol-cyan" style="border-color:#30D9DE;color:#30D9DE">4</div><div><p class="text-sol-gray text-sm"><strong>10h30</strong> — Tu reviens voir Codex. Le script est prêt. 200 restaurants scrapés. Tu vérifies, c'est bon.</p></div></div>
+        <div class="flex items-start gap-4"><div class="step border-sol-accent text-sol-accent" style="border-color:#4CC0C0;color:#4CC0C0">5</div><div><p class="text-sol-gray text-sm"><strong>Résultat</strong> — En 1h30 tu as un site web ET un script de scraping. Au lieu de 3h si tu faisais tout l'un après l'autre.</p></div></div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 14 : RÉCAP -->
+<!-- ============================================================ -->
+
+<section data-s="42" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-3xl mb-6">Ce qu'il faut retenir.</h2>
+    <div class="space-y-3">
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Codex c'est un agent autonome — tu lances, tu pars, tu reviens</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">3 modes : Suggest (il propose), Auto Edit (il écrit), Full Auto (il fait tout)</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Inclus avec ChatGPT Plus (20$/mois) — pas de coût en plus</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Sandbox sécurisé — il peut rien casser</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Multi-agents — lance plusieurs Codex en parallèle</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Claude Code = interactif, Codex = autonome, les deux = combo parfait</span></div>
+        <div class="flex items-center gap-3"><span style="color:#4CC0C0" class="text-lg">✓</span><span class="text-sol-gray">Tâches claires → Codex. Tâches floues → Claude Code.</span></div>
+    </div>
+</div>
+</section>
+
+<!-- Cheatsheet -->
+<section data-s="43" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-2xl mb-6">Cheatsheet Codex.</h2>
+    <div class="code border-sol-accent" style="border-color:#30D9DE">
+        <div style="color:#30D9DE" class="mb-3 font-bold">// Codex — Cheatsheet</div>
+        <div class="text-gray-400 space-y-2">
+            <p>INSTALLER</p>
+            <p>  npm i -g @openai/codex</p>
+            <p>  brew install --cask codex (Mac)</p>
+            <p></p>
+            <p>MODES</p>
+            <p>  codex --suggest     → il propose, tu valides</p>
+            <p>  codex --auto-edit   → il écrit, tu valides les commandes</p>
+            <p>  codex --full-auto   → il fait tout</p>
+            <p></p>
+            <p>COMMANDES</p>
+            <p>  /help /clear /theme</p>
+            <p>  @ → référencer un fichier</p>
+            <p>  Enter → injecter des instructions en cours</p>
+            <p>  Tab → prompt en file d'attente</p>
+            <p></p>
+            <p>QUAND L'UTILISER</p>
+            <p>  → Tâches claires et bien définies</p>
+            <p>  → Refactoring, tests, scripts</p>
+            <p>  → En parallèle de Claude Code</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPITRE 15 : LA SUITE -->
+<!-- ============================================================ -->
+
+<section data-s="44" class="py-16">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <h2 class="font-space font-bold text-2xl mb-4">La suite</h2>
+    <p class="text-sol-gray leading-relaxed mb-6">Tu connais maintenant 2 outils sur 4. On continue :</p>
+    <div class="space-y-3">
+        <div class="card-light p-4"><div class="flex items-center justify-between"><div><span class="font-bold text-sm">Séance 1</span><p class="text-sol-gray text-xs mt-1">Claude Code — ton outil interactif</p></div><span class="tag border-sol-accent text-sol-accent text-xs">Fait ✓</span></div></div>
+        <div class="card-light p-4" style="border-color:#30D9DE"><div class="flex items-center justify-between"><div><span class="font-bold text-sm">Séance 2</span><p class="text-sol-gray text-xs mt-1">Codex — ton agent autonome</p></div><span class="tag text-xs" style="border-color:#30D9DE;color:#30D9DE">Fait ✓</span></div></div>
+        <div class="card-light p-4"><div class="flex items-center justify-between"><div><span class="font-bold text-sm">Séance 3</span><p class="text-sol-gray text-xs mt-1">n8n — l'automatisation de flux</p></div><span class="tag border-sol-accent text-sol-accent text-xs">Prochaine</span></div></div>
+        <div class="card-light p-4"><div class="flex items-center justify-between"><div><span class="font-bold text-sm">Séance 4</span><p class="text-sol-gray text-xs mt-1">Claude Cowork — l'analyse et les documents</p></div><span class="text-sol-gray text-xs font-mono">Bientôt</span></div></div>
+    </div>
+</div>
+</section>
+
+<section data-s="45" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card-accent p-6" style="border-color:#30D9DE">
+        <h3 class="font-bold text-lg mb-3">Un truc à faire avant la séance 3</h3>
+        <p class="text-sol-gray text-sm leading-relaxed">Installe Codex et lance une tâche en Full Auto. N'importe quoi — "crée un fichier HTML avec un compteur", "écris un script qui génère 10 noms aléatoires". Le but c'est de voir la magie : tu lances, tu pars, tu reviens, c'est fait.</p>
+    </div>
+</div>
+</section>
+
+<section data-s="46" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card p-6">
+        <h4 class="font-bold mb-3">Si t'es bloqué</h4>
+        <div class="text-sol-gray text-sm space-y-2">
+            <p>→ Regarde la vidéo de cette séance</p>
+            <p>→ Relis cette présentation</p>
+            <p>→ Pose ta question sur le Slack</p>
+            <p>→ Clone le repo <span class="code-inline">denem-codex</span> pour des exemples</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<section data-s="47" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr">
+    <div class="card p-6 border-l-4" style="border-left-color:#30D9DE">
+        <h4 class="font-bold mb-3">Récap des 2 premières séances</h4>
+        <p class="text-sol-gray text-sm leading-relaxed">Tu as maintenant 2 outils de construction. <strong style="color:#4CC0C0">Claude Code</strong> pour travailler en direct avec l'IA. <strong style="color:#30D9DE">Codex</strong> pour déléguer des tâches en autonomie. Les deux ensemble, t'es 2x plus rapide que n'importe qui. Et on a même pas encore vu n8n et Cowork.</p>
+    </div>
+</div>
+</section>
+
+<section data-s="48" class="py-20">
+<div class="max-w-3xl mx-auto px-4 sr text-center">
+    <h2 class="font-space font-bold text-3xl sm:text-4xl mb-4">Fin de la séance 2.</h2>
+    <p class="text-sol-gray text-lg mb-2">Tu sais ce que c'est, la différence avec Claude Code, comment l'installer, les 3 modes, et comment combiner les deux.</p>
+    <p class="text-sol-gray">On se retrouve en séance 3 pour n8n.</p>
+</div>
+</section>
+
+<section data-s="49" class="py-12">
+<div class="max-w-3xl mx-auto px-4 sr text-center">
+    <div class="inline-block p-1 gradient-bg"><div class="px-8 py-4 bg-white"><span class="font-space font-bold text-xl gradient-text">DENEM Academy</span></div></div>
+    <p class="text-sol-gray text-xs mt-6 font-mono">Séance 2 — Codex — Acte 1 : Maîtriser</p>
+</div>
+</section>
+
+<section data-s="50" class="py-4"></section>
+
+<div class="py-16"></div>
+<footer class="py-8 border-t border-sol-lightgray">
+<div class="max-w-5xl mx-auto px-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+        <div class="w-6 h-6 bg-sol-navy flex items-center justify-center font-mono font-bold text-xs text-white rounded">D</div>
+        <span class="font-space font-bold text-sm">DENEM Academy</span>
+    </div>
+    <span class="text-xs text-sol-gray font-mono">Séance 02 / 24</span>
+</div>
+</footer>
+
+
+<!-- JS -->
+<script>
+// ==========================================
+// Progress bar (smooth)
+// ==========================================
+window.addEventListener('scroll',()=>{
+    const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;
+    document.getElementById('pb').style.width=(s/d)*100+'%';
+    // Nav shadow on scroll
+    document.querySelector('nav').classList.toggle('scrolled',s>50);
+});
+
+// ==========================================
+// Scroll reveal (multiple types)
+// ==========================================
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.sr,.sr-left,.sr-right,.sr-scale,.stagger-list,.reveal-line').forEach(e=>ro.observe(e));
+
+// ==========================================
+// Section counter
+// ==========================================
+const allS=document.querySelectorAll('[data-s]'),sc=document.getElementById('sc');
+const sco=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){sc.textContent=x.target.dataset.s+' / 50';sc.style.transform='scale(1.1)';setTimeout(()=>sc.style.transform='scale(1)',200)}})},{threshold:.3});
+allS.forEach(s=>sco.observe(s));
+
+// ==========================================
+// Card 3D tilt
+// ==========================================
+document.querySelectorAll('.ch,.ch-tilt').forEach(c=>{
+    c.addEventListener('mousemove',e=>{
+        const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+        const rotX=(y-r.height/2)/30,rotY=(r.width/2-x)/30;
+        c.style.transform=`perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+    });
+    c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+
+// ==========================================
+// Cursor glow (follows mouse smoothly)
+// ==========================================
+const cg=document.getElementById('cg');
+let mx=0,my=0,gx=0,gy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function ag(){gx+=(mx-gx)*.06;gy+=(my-gy)*.06;if(cg)cg.style.transform=`translate(${gx-150}px,${gy-150}px)`;requestAnimationFrame(ag)})();
+
+// ==========================================
+// Magnetic effect on tags/buttons
+// ==========================================
+document.querySelectorAll('.magnetic,.tag,.tb').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+        const r=el.getBoundingClientRect();
+        const x=(e.clientX-r.left-r.width/2)*.15;
+        const y=(e.clientY-r.top-r.height/2)*.15;
+        el.style.transform=`translate(${x}px,${y}px)`;
+    });
+    el.addEventListener('mouseleave',()=>{el.style.transform='';});
+});
+
+// ==========================================
+// Terminal typing animation on hover
+// ==========================================
+document.querySelectorAll('.terminal').forEach(t=>{
+    t.addEventListener('mouseenter',()=>{
+        t.querySelectorAll('.terminal-output').forEach((line,i)=>{
+            line.style.opacity='0';line.style.transform='translateX(-5px)';
+            setTimeout(()=>{line.style.transition='all .3s ease';line.style.opacity='1';line.style.transform='translateX(0)'},i*80);
+        });
+    });
+});
+
+// ==========================================
+// Cmd copy to clipboard on click
+// ==========================================
+document.querySelectorAll('.cmd').forEach(cmd=>{
+    cmd.addEventListener('click',()=>{
+        const text=cmd.textContent.replace('$','').replace('cliquer pour copier','').replace('copié !','').trim();
+        navigator.clipboard.writeText(text);
+        cmd.classList.add('copied');
+        setTimeout(()=>cmd.classList.remove('copied'),1500);
+    });
+});
+
+// Aussi rendre les code-inline copiables
+document.querySelectorAll('.code-inline').forEach(ci=>{
+    ci.style.cursor='pointer';
+    ci.title='Clique pour copier';
+    ci.addEventListener('click',()=>{
+        navigator.clipboard.writeText(ci.textContent.trim());
+        const orig=ci.style.background;
+        ci.style.background='#4CC0C0';ci.style.color='#fff';
+        setTimeout(()=>{ci.style.background=orig;ci.style.color=''},600);
+    });
+});
+
+// ==========================================
+// Parallax on floating elements
+// ==========================================
+window.addEventListener('scroll',()=>{
+    const s=window.scrollY;
+    document.querySelectorAll('.animate-float,.animate-float-slow,.animate-float-reverse').forEach((el,i)=>{
+        const speed=.02+i*.01;
+        el.style.transform=`translateY(${Math.sin(s*speed)*15}px) rotate(${Math.sin(s*speed)*3}deg)`;
+    });
+});
+
+// ==========================================
+// Easter egg: Konami code
+// ==========================================
+let kc=[];const ks=[38,38,40,40,37,39,37,39,66,65];
+document.addEventListener('keydown',e=>{
+    kc.push(e.keyCode);if(kc.length>ks.length)kc.shift();
+    if(JSON.stringify(kc)===JSON.stringify(ks)){
+        document.body.style.transition='filter 1s';
+        document.body.style.filter='hue-rotate(180deg)';
+        setTimeout(()=>document.body.style.filter='none',3000);
+    }
+});
+
+// ==========================================
+// Easter egg: triple click on logo
+// ==========================================
+let lc=0;
+document.querySelector('nav .rounded')?.addEventListener('click',()=>{
+    lc++;
+    if(lc===3){
+        document.querySelector('nav .rounded').style.transition='all .5s';
+        document.querySelector('nav .rounded').style.transform='rotate(360deg) scale(1.3)';
+        document.querySelector('nav .rounded').style.background='#4CC0C0';
+        setTimeout(()=>{
+            document.querySelector('nav .rounded').style.transform='';
+            document.querySelector('nav .rounded').style.background='';
+        },1000);
+        lc=0;
+    }
+});
+
+// ==========================================
+// Smooth appear for emojis
+// ==========================================
+document.querySelectorAll('.emoji').forEach(em=>{
+    em.addEventListener('mouseenter',()=>{em.style.transform='scale(1.3) rotate(-8deg)';});
+    em.addEventListener('mouseleave',()=>{em.style.transform='';});
+});
+</script>
+</body>
+</html>
