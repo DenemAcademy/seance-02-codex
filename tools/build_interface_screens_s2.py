@@ -156,6 +156,80 @@ def kanban(draw: ImageDraw.ImageDraw, xy: tuple[int, int, int, int], cols: list[
             y += 92
 
 
+def pill(draw: ImageDraw.ImageDraw, xy: tuple[int, int, int, int], label: str, fill: str = "#f4f4f5", bold: bool = False) -> None:
+    draw.rounded_rectangle(xy, radius=18, fill=fill, outline="#e5e7eb", width=2)
+    text(draw, (xy[0] + 18, xy[1] + 10), label, F_SMALL_BOLD if bold else F_SMALL, INK)
+
+
+def codex_home_ui(draw: ImageDraw.ImageDraw) -> None:
+    x1, y1, x2, y2 = 54, 315, 1380, 835
+    shadow(draw, (x1, y1, x2, y2), WHITE, size=12)
+    draw.rectangle((x1, y1, x1 + 230, y2), fill="#eef2f7", outline=INK, width=3)
+    for i, color in enumerate(["#ef4444", "#facc15", "#22c55e"]):
+        draw.ellipse((x1 + 18 + i * 28, y1 + 18, x1 + 36 + i * 28, y1 + 36), fill=color)
+    side_items = ["Nouveau clavardage", "Recherche", "Modules d'extension", "Automatisations"]
+    for i, label in enumerate(side_items):
+        text(draw, (x1 + 34, y1 + 72 + i * 44), label, F_SMALL, "#3f3f46")
+    text(draw, (x1 + 34, y1 + 265), "Projets", F_SMALL, "#a1a1aa")
+    for i, label in enumerate(["06-leads-gratuits...", "Trouver un MCP de ...", "Nettoyer dossier le...", "Préparer base CRM..."]):
+        text(draw, (x1 + 34, y1 + 310 + i * 42), label, F_SMALL, "#52525b")
+    text(draw, (x1 + 34, y2 - 50), "Paramètres", F_SMALL, "#3f3f46")
+    cx = x1 + 230
+    text(draw, (cx + 340, y1 + 165), "Sur quoi devrait-on travailler?", F_TITLE, "#18181b")
+    draw.rounded_rectangle((cx + 210, y1 + 250, cx + 880, y1 + 380), radius=24, fill=WHITE, outline="#e5e7eb", width=2)
+    text(draw, (cx + 235, y1 + 278), "Posez n'importe quelle question", F_BODY, "#a1a1aa")
+    text(draw, (cx + 235, y1 + 345), "+", F_BODY_BOLD, "#71717a")
+    pill(draw, (cx + 295, y1 + 335, cx + 430, y1 + 376), "Accès complet", "#fff7ed", True)
+    text(draw, (cx + 785, y1 + 345), "5.5  Très approfondi", F_SMALL, "#71717a")
+    draw.rounded_rectangle((cx + 220, y1 + 385, cx + 870, y1 + 430), radius=16, fill="#f5f5f5", outline="#f5f5f5", width=1)
+    text(draw, (cx + 245, y1 + 398), "Travailler sur un projet", F_SMALL, "#71717a")
+    draw.rounded_rectangle((cx + 210, y1 + 505, cx + 880, y1 + 620), radius=20, fill=WHITE, outline="#e5e7eb", width=2)
+    text(draw, (cx + 260, y1 + 535), "Activer le mode Fast", F_SMALL_BOLD, "#18181b")
+    wrapped(draw, (cx + 260, y1 + 565), "Codex estime le temps gagné et propose un mode plus rapide quand le travail s'y prête.", 520, F_SMALL, "#71717a", 6)
+    pill(draw, (cx + 700, y1 + 545, cx + 845, y1 + 585), "Activer maintenant", "#18181b", True)
+
+
+def codex_plugins_ui(draw: ImageDraw.ImageDraw) -> None:
+    x1, y1, x2, y2 = 54, 315, 1380, 835
+    shadow(draw, (x1, y1, x2, y2), WHITE, size=12)
+    pill(draw, (x1 + 30, y1 + 22, x1 + 150, y1 + 60), "Plugiciels", "#f4f4f5", True)
+    text(draw, (x1 + 170, y1 + 32), "Compétences", F_SMALL, "#9ca3af")
+    text(draw, (x1 + 470, y1 + 100), "Adaptez Codex à vos besoins", F_TITLE, "#18181b")
+    draw.rounded_rectangle((x1 + 260, y1 + 170, x1 + 845, y1 + 210), radius=14, fill=WHITE, outline="#e5e7eb", width=2)
+    text(draw, (x1 + 285, y1 + 181), "Rechercher des modules d'extension", F_SMALL, "#9ca3af")
+    pill(draw, (x1 + 860, y1 + 170, x1 + 1010, y1 + 210), "Built by OpenAI", "#f4f4f5", False)
+    pill(draw, (x1 + 1025, y1 + 170, x1 + 1105, y1 + 210), "Tout", "#f4f4f5", False)
+    draw.rounded_rectangle((x1 + 260, y1 + 235, x1 + 1110, y1 + 465), radius=22, fill="#dbeafe", outline="#c7d2fe", width=2)
+    draw.rounded_rectangle((x1 + 410, y1 + 325, x1 + 940, y1 + 395), radius=20, fill="#f8fafc", outline="#c7d2fe", width=2)
+    text(draw, (x1 + 435, y1 + 346), "Gmail  Rédiger des réponses aux courriels", F_BODY, "#18181b")
+    pill(draw, (x1 + 565, y1 + 425, x1 + 835, y1 + 470), "Essayer dans le clavardage", "#18181b", True)
+    text(draw, (x1 + 260, y1 + 525), "Featured", F_BODY_BOLD, "#18181b")
+    items = [("Spreadsheets", "Create and edit spreadsheet files"), ("Presentations", "Create and edit presentations"), ("GitHub", "Triage PRs, issues, CI, and flows"), ("Slack", "Read and manage Slack"), ("Notion", "Research and manage docs"), ("Linear", "Find and reference issues")]
+    for i, (name, desc) in enumerate(items):
+        col = i % 2
+        row = i // 2
+        ix = x1 + 280 + col * 470
+        iy = y1 + 575 + row * 70
+        draw.rounded_rectangle((ix, iy, ix + 48, iy + 48), radius=12, fill=WHITE, outline="#e5e7eb", width=2)
+        text(draw, (ix + 65, iy + 4), name, F_SMALL_BOLD, "#18181b")
+        text(draw, (ix + 65, iy + 28), desc, F_SMALL, "#71717a")
+
+
+def codex_automations_ui(draw: ImageDraw.ImageDraw) -> None:
+    x1, y1, x2, y2 = 54, 315, 1380, 835
+    shadow(draw, (x1, y1, x2, y2), WHITE, size=12)
+    text(draw, (x1 + 245, y1 + 85), "Automatisations", F_TITLE, "#18181b")
+    text(draw, (x1 + 245, y1 + 142), "Lancez des clavardages selon un horaire ou quand vous en avez besoin.", F_BODY, "#8b8b91")
+    pill(draw, (x2 - 345, y1 + 28, x2 - 190, y1 + 68), "Voir les modèles", WHITE, False)
+    pill(draw, (x2 - 178, y1 + 28, x2 - 22, y1 + 68), "Créer par clavardage", "#18181b", True)
+    draw.rounded_rectangle((x1 + 610, y1 + 310, x1 + 715, y1 + 410), radius=45, fill=WHITE, outline="#18181b", width=8)
+    text(draw, (x1 + 652, y1 + 337), ">_", F_BODY_BOLD, "#18181b")
+    text(draw, (x1 + 485, y1 + 485), "Créez votre première automatisation", F_BODY_BOLD, "#18181b")
+    chips = ["Bilan quotidien", "Revue hebdomadaire", "Suivi de projet"]
+    for i, label in enumerate(chips):
+        pill(draw, (x1 + 390 + i * 205, y1 + 555, x1 + 570 + i * 205, y1 + 600), label, WHITE, False)
+
+
 def save(name: str, title: str, subtitle: str, badge: str, draw_fn) -> None:
     image = Image.new("RGB", (1440, 900), WHITE)
     draw = ImageDraw.Draw(image)
@@ -166,9 +240,12 @@ def save(name: str, title: str, subtitle: str, badge: str, draw_fn) -> None:
 
 SCENES = [
     ("hero-codex-claude.png", "Deux agents, un projet", "La séance compare Codex et Claude Code avec le même dossier et la même mission business.", "séance 2", lambda d: browser(d, (54, 360, 1380, 810), "restaurant-comptoir-bleu", [(CYAN, "Dossier", "Une page simple de restaurant sert de terrain commun."), ("#ede9fe", "Codex", "On observe comment il planifie, modifie et vérifie."), ("#dbeafe", "Claude Code", "On regarde la même demande dans le même contexte.")]),),
+    ("codex-home-screen.png", "Accueil Codex", "L’écran de départ sert à poser une demande, choisir un projet, un niveau d’accès et un mode de raisonnement.", "codex", lambda d: codex_home_ui(d),),
+    ("codex-plugiciels-screen.png", "Plugiciels Codex", "Les plugiciels adaptent Codex à vos outils : GitHub, Notion, Linear, Slack, Gmail et autres connexions.", "codex", lambda d: codex_plugins_ui(d),),
+    ("codex-automatisations-screen.png", "Automatisations Codex", "Les automatisations lancent des clavardages selon un horaire ou un besoin récurrent.", "codex", lambda d: codex_automations_ui(d),),
     ("codex-install.png", "Installer Codex", "La route officielle propose une application, une extension IDE, le CLI et le cloud.", "codex", lambda d: terminal(d, (54, 350, 1380, 820), "Installation Codex CLI", [("$", "curl -fsSL https://chatgpt.com/codex/install.sh | sh"), ("PS", 'powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"'), ("$", "npm install -g @openai/codex"), ("$", "brew install --cask codex")]),),
     ("codex-login.png", "Connexion Codex", "Codex démarre dans le terminal puis demande une connexion ChatGPT ou une clé API.", "codex", lambda d: terminal(d, (54, 350, 1380, 820), "Première session Codex", [("$", "cd restaurant-comptoir-bleu"), ("$", "codex"), ("codex", "Sign in with ChatGPT ou API key"), ("codex", "Local sélectionné : Codex travaille sur votre machine.")]),),
-    ("claude-install.png", "Installer Claude Code", "Claude Code se lance dans un dossier et vous demande de vous connecter au bon compte.", "claude", lambda d: terminal(d, (54, 350, 1380, 820), "Installation Claude Code", [("$", "curl -fsSL https://claude.ai/install.sh | bash"), ("PS", "irm https://claude.ai/install.ps1 | iex"), ("$", "claude"), ("claude", "/login pour changer de compte si besoin")]),),
+    ("claude-install.png", "Rappel Claude Code", "Claude Code a déjà été vu en séance 1. Ici il sert seulement de point de comparaison.", "claude", lambda d: terminal(d, (54, 350, 1380, 820), "Rappel rapide", [("$", "cd restaurant-comptoir-bleu"), ("$", "claude"), ("claude", "Même dossier, même brief, même vérification."), ("→", "Pas de réinstallation ici : on compare seulement la méthode.")]),),
     ("same-folder.png", "Même dossier", "La comparaison ne vaut rien si les deux outils ne partent pas du même contexte.", "terrain", lambda d: folder(d, (54, 350, 1380, 820), "restaurant-comptoir-bleu", [("DIR", "img/"), ("FILE", "index.html"), ("FILE", "README.md"), ("FILE", "AGENTS.md"), ("FILE", "CLAUDE.md")]),),
     ("same-brief.png", "Même brief", "On donne la même demande aux deux outils pour comparer le raisonnement, pas l’humeur du moment.", "brief", lambda d: terminal(d, (54, 350, 1380, 820), "Brief commun", [(">", "Ajoute une formule midi à la page du Comptoir Bleu."), (">", "Garde fond blanc, bleu et violet. Vérifie mobile."), (">", "Liste les fichiers modifiés et les tests à faire.")]),),
     ("agents-md.png", "AGENTS.md", "Codex lit les consignes de projet dans AGENTS.md quand elles existent dans le dossier.", "codex", lambda d: folder(d, (54, 350, 1380, 820), "AGENTS.md", [("RULE", "Fond blanc, accents bleu et violet"), ("RULE", "Toujours vérifier mobile"), ("RULE", "Ne pas ajouter de dépendance sans demander"), ("RULE", "Résumer les fichiers modifiés")]),),
