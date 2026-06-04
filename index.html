@@ -4201,6 +4201,9 @@ Les deux outils ne modifient pas la même chose en même temps.</code></pre>
     </script>
     
   
+
+
+
 <!-- DENEM visual system normalization -->
 <style id="denem-visual-system">
 :root {
@@ -4244,6 +4247,11 @@ header::before {
 main > section {
   background: var(--denem-paper) !important;
   background-image: none !important;
+}
+.reveal,
+.reveal.visible {
+  opacity: 1 !important;
+  transform: none !important;
 }
 .topbar,
 .top,
@@ -4456,6 +4464,8 @@ tbody tr:nth-child(even) td,
       return `<a href="#section-${label}">${label}</a>`;
     }).join('');
   }
+
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 
   document.querySelectorAll('.stat, .hero-stats .stat, .stats .stat, .summary-card, .act').forEach(el => {
     if (/sections?\s+(guidées|guides|section)|sections?\s*\d+|\d+\s*sections?/i.test(el.textContent || '')) {
