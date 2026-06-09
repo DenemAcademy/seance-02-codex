@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Denem Academy · Séance 2 · Codex vs Claude Code</title>
-    <meta name="description" content="Support technique séance 2 : comparaison Codex et Claude Code avec un parcours concret autour du Comptoir Bleu.">
+    <title>DENEM Academy · Séance 02 · Codex : agents IA &amp; automatisations</title>
+    <meta name="description" content="Support DENEM Academy - Séance 02 : Codex : agents IA &amp; automatisations. Phase 0 - Socle technique &amp; outils.">
     <link rel="icon" href="logo-denem.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
 
 <style id="denem-act-system">
 :root {
-  --denem-act-color: #1E3A8A;
+  --denem-act-color: #60A5FA;
   --denem-act-bg: #ffffff;
 }
 body {
@@ -50,70 +50,101 @@ body {
 .denem-act-ribbon,
 .denem-sources-final {
   background: #ffffff;
-  color: #0f172a;
-  border-top: 4px solid var(--denem-act-color);
-  border-bottom: 4px solid var(--denem-act-color);
+  color: #000000;
+  border-top: 6px solid var(--denem-act-color);
+  border-bottom: 4px solid #000000;
 }
 .denem-act-ribbon {
-  padding: 18px;
+  padding: clamp(18px, 3vw, 34px) 18px;
 }
 .denem-act-ribbon__inner,
 .denem-sources-final__inner {
   max-width: 1320px;
   margin: 0 auto;
 }
-.denem-act-ribbon__kicker,
-.denem-sources-final__kicker {
-  display: inline-flex;
+.denem-act-ribbon__topline,
+.denem-act-ribbon__meta,
+.denem-act-ribbon__chips,
+.denem-act-ribbon__phase-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
-  border: 2px solid var(--denem-act-color);
-  background: var(--denem-act-color);
-  color: #ffffff;
+}
+.denem-act-ribbon__topline {
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.denem-act-ribbon__kicker,
+.denem-sources-final__kicker,
+.denem-act-ribbon__session,
+.denem-act-ribbon__meta span,
+.denem-act-ribbon__phase-nav strong,
+.denem-act-ribbon__phase-nav a {
+  border: 2px solid #000000;
+  background: #ffffff;
+  color: #000000;
   padding: 8px 12px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   font-weight: 900;
+  line-height: 1;
   text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--denem-act-color);
+}
+.denem-act-ribbon__kicker,
+.denem-act-ribbon__phase-nav a.is-current,
+.denem-act-ribbon__phase-nav strong {
+  background: var(--denem-act-color);
+}
+.denem-act-ribbon__session {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 4px 4px 0 var(--denem-act-color);
 }
 .denem-act-ribbon h2,
 .denem-sources-final h2 {
-  margin: 14px 0 8px;
-  color: var(--denem-act-color);
-  font-size: 48px;
-  line-height: 1.03;
+  max-width: 1120px;
+  margin: 10px 0 10px;
+  color: #000000;
+  font-size: clamp(38px, 6vw, 86px);
+  line-height: .94;
   font-weight: 950;
   letter-spacing: 0;
+  border-left: 14px solid var(--denem-act-color);
+  padding-left: clamp(14px, 2vw, 24px);
 }
 .denem-act-ribbon p {
-  max-width: 920px;
+  max-width: 960px;
   margin: 0;
-  color: #334155;
-  font-size: 18px;
-  line-height: 1.7;
+  color: #000000;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.65;
 }
 .denem-act-ribbon__chips,
-.denem-sources-final ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 16px 0 0;
+.denem-act-ribbon__phase-nav {
+  margin: 18px 0 0;
   padding: 0;
   list-style: none;
 }
-.denem-act-ribbon__chips span,
-.denem-sources-final a {
+.denem-act-ribbon__chips span {
   display: inline-flex;
   align-items: center;
-  border: 2px solid var(--denem-act-color);
+  border: 2px solid #000000;
   background: #ffffff;
-  color: #0f172a;
+  color: #000000;
   padding: 10px 12px;
   text-decoration: none;
   font-weight: 900;
+  box-shadow: 3px 3px 0 var(--denem-act-color);
 }
-.denem-sources-final a:hover {
+.denem-act-ribbon__phase-nav {
+  padding-top: 14px;
+  border-top: 2px solid #000000;
+}
+.denem-act-ribbon__phase-nav a:hover {
   background: var(--denem-act-color);
-  color: #ffffff;
 }
 .denem-sources-final {
   padding: 56px 18px;
@@ -125,23 +156,20 @@ body {
 .nav-chip.is-active,
 .summary-card b {
   background-color: var(--denem-act-color) !important;
-  border-color: var(--denem-act-color) !important;
-  color: #ffffff !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
 }
-
 @media (max-width: 700px) {
-  .denem-act-ribbon h2,
-  .denem-sources-final h2 {
-    font-size: 32px;
+  .denem-act-ribbon__topline {
+    justify-content: flex-start;
   }
-  .denem-act-ribbon,
-  .denem-sources-final {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .denem-sources-final ul {
+  .denem-act-ribbon__phase-nav {
     display: grid;
     grid-template-columns: 1fr;
+  }
+  .denem-act-ribbon h2,
+  .denem-sources-final h2 {
+    font-size: 34px;
   }
 }
 </style>
@@ -151,8 +179,8 @@ body {
   color-scheme: light;
   --denem-white: #FFFFFF;
   --denem-black: #000000;
-  --denem-act: #C8A46A;
-  --denem-act-number: "1";
+  --denem-act: #60A5FA;
+  --denem-act-number: "0";
   --ink: #000000;
   --muted: #000000;
   --line: #000000;
@@ -1146,22 +1174,210 @@ blockquote span:not(.num):not(.badge),
 }
 </style>
 
+<style id="denem-session-media-system">
+.denem-session-switcher {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(280px, 720px);
+  gap: 10px;
+  align-items: center;
+  margin: 18px auto 0;
+  padding: 14px 0;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  max-width: 980px;
+}
+.denem-session-switcher label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 2px solid #000000;
+  background: var(--denem-act-color, var(--denem-act, #60A5FA));
+  color: #000000;
+  box-shadow: 4px 4px 0 var(--denem-act-color, var(--denem-act, #60A5FA));
+  padding: 10px 12px;
+  font: 950 12px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.denem-session-switcher select {
+  width: 100%;
+  min-height: 44px;
+  border: 2px solid #000000;
+  border-radius: 0;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 4px 4px 0 var(--denem-act-color, var(--denem-act, #60A5FA));
+  padding: 0 44px 0 14px;
+  font: 900 14px/1.1 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  appearance: auto;
+}
+.media-card,
+.shot,
+.visual,
+.hero-card,
+.poster,
+.image-card,
+.screen,
+.capture,
+figure[class*="media"],
+figure[class*="visual"],
+figure[class*="shot"] {
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: #ffffff !important;
+  background-image:
+    linear-gradient(45deg, rgba(0,0,0,.035) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0,0,0,.035) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,.035) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,.035) 75%) !important;
+  background-size: 18px 18px !important;
+  background-position: 0 0, 0 9px, 9px -9px, -9px 0 !important;
+}
+.media-card > img,
+.shot > img,
+.visual > img,
+.hero-card > img,
+figure[class*="media"] > img,
+figure[class*="visual"] > img,
+figure[class*="shot"] > img {
+  position: relative !important;
+  z-index: 1 !important;
+  background: #ffffff !important;
+}
+.media-card::after,
+.shot::after,
+.visual::after,
+.hero-card::after,
+figure[class*="media"]::after,
+figure[class*="visual"]::after,
+figure[class*="shot"]::after {
+  content: "Capture";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  border: 2px solid #000000;
+  background: var(--denem-act-color, var(--denem-act, #60A5FA));
+  color: #000000;
+  padding: 6px 8px;
+  font: 950 10px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  pointer-events: none;
+}
+.media-card:has(figcaption)::after,
+.shot:has(figcaption)::after,
+.visual:has(figcaption)::after,
+figure[class*="media"]:has(figcaption)::after,
+figure[class*="visual"]:has(figcaption)::after,
+figure[class*="shot"]:has(figcaption)::after {
+  content: none;
+}
+.media-card:empty,
+.shot:empty,
+.visual:empty,
+.hero-card:empty,
+figure[class*="media"]:empty,
+figure[class*="visual"]:empty,
+figure[class*="shot"]:empty {
+  min-height: 220px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+.media-card:empty::before,
+.shot:empty::before,
+.visual:empty::before,
+.hero-card:empty::before,
+figure[class*="media"]:empty::before,
+figure[class*="visual"]:empty::before,
+figure[class*="shot"]:empty::before,
+.is-media-missing::before {
+  content: "Bloc media a completer";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000000;
+  background: var(--denem-act-color, var(--denem-act, #60A5FA));
+  color: #000000;
+  padding: 12px 14px;
+  font: 950 12px/1.15 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.is-media-missing {
+  min-height: 220px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+.is-media-missing > img {
+  display: none !important;
+}
+@media (max-width: 700px) {
+  .denem-session-switcher {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+  .denem-session-switcher select {
+    font-size: 13px;
+  }
+}
+</style>
 </head>
-  <body class="font-sans antialiased">
+  <body class="font-sans antialiased" data-phase="0" data-session="02" data-old-session="02">
 
 <section class="denem-act-ribbon" aria-label="En-tête du support de cours">
   <div class="denem-act-ribbon__inner">
     <div class="denem-act-ribbon__topline">
-      <span class="denem-act-ribbon__kicker">Acte 1 · Séances 1-3</span>
-      <span class="denem-act-ribbon__session">Séance 02</span>
+      <span class="denem-act-ribbon__kicker">Phase 0 · Socle technique &amp; outils</span>
+      <span class="denem-act-ribbon__session">Séance 02 · ex-02</span>
     </div>
-    <h2>Codex vs Claude Code</h2>
-    <p>Un repère simple pour savoir où tu es, quoi faire et comment retrouver les étapes importantes.</p>
+    <h2>Codex : agents IA &amp; automatisations</h2>
+    <p>On installe le socle technique : agents IA, automatisations, n8n, Claude Cowork et QG de travail.</p>
     <div class="denem-act-ribbon__chips" aria-label="Repères utiles du support">
-      <span>Parcours · Installer les bases IA : Claude Code, Codex et n8n</span>
-      <span>À faire · Suivre la séance puis refaire seul</span>
-      <span>Navigation · Boutons 01, 02, 03... pour retrouver une étape</span>
+      <span>Technique</span>
+      <span>Séances 1 à 5</span>
+      <span>Parcours DENEM Academy</span>
+      <span>Support technique séances 1 à 24</span>
     </div>
+    <div class="denem-session-switcher" aria-label="Changer de séance">
+      <label for="denem-session-switch">Changer de séance</label>
+      <select id="denem-session-switch">
+        <option value="../DENEMACADEMY-SEANCE-1-CLAUDE-CODE/index.html">01 — Claude Code : agents IA &amp; automatisations · Phase 0</option>
+        <option value="#top" selected>02 — Codex : agents IA &amp; automatisations · Phase 0</option>
+        <option value="../seance-03-n8n/index.html">03 — Découverte et prise en main de n8n · Phase 0</option>
+        <option value="../seance-04-cowork/index.html">04 — Maîtriser Claude Cowork · Phase 0</option>
+        <option value="../formation-seance-06-qg-cowork/index.html">05 — Créer son QG de travail Cowork · Phase 0</option>
+        <option value="../seance-05-etude-marche/index.html">06 — Étude de marché complète · Phase 1</option>
+        <option value="../seance-07-identite-marque/index.html">07 — Créer son identité de marque · Phase 1</option>
+        <option value="../seance-09-site-web-wordpress/index.html">08 — Créer et déployer son site WordPress · Phase 2</option>
+        <option value="../formation-seance-08-audit-seo-geo/index.html">09 — Audit &amp; stratégie SEO/GEO automatisé · Phase 2</option>
+        <option value="../denemacademy-seance-10-blog-automatique/index.html">10 — Créer son blog pour attirer des leads · Phase 2</option>
+        <option value="../seance-11-automatiser-publication-article/index.html">11 — Automatiser la publication d'articles · Phase 2</option>
+        <option value="../formation-seance-12-profil-linkedin/index.html">12 — Profil LinkedIn optimisé · Phase 3</option>
+        <option value="../seance-13-creer-son-lead-magnet/index.html">13 — Créer son lead magnet · Phase 3</option>
+        <option value="../seance-14-automatiser-posts-linkedin/index.html">14 — Automatiser ses posts LinkedIn · Phase 3</option>
+        <option value="../denemacademy-seance-15-leads-gratuits/index.html">15 — Obtenir des leads gratuits · Phase 4</option>
+        <option value="../seance-16-enrichir-leads-data-gouv/index.html">16 — Enrichir ses leads avec data.gouv · Phase 4</option>
+        <option value="../formation-seance-17-enrichir-leads-apify/index.html">17 — Enrichir ses leads avec Apify · Phase 4</option>
+        <option value="../seance-18-nettoyer-scorer-bdd/index.html">18 — Nettoyer / scorer sa BDD · Phase 4</option>
+        <option value="../seance-19-prospection-automatisee/index.html">19 — Stratégie de prospection automatisée · Phase 4</option>
+        <option value="../seance-20-audit-technique-client/index.html">20 — Premier RDV commercial &amp; audit client · Phase 5</option>
+        <option value="../seance-21-organisation-projet-client/index.html">21 — Organiser son projet client · Phase 5</option>
+        <option value="../seance-22-rag-supabase/index.html">22 — Créer un RAG sur mesure · Phase 5</option>
+        <option value="../seance-23-chatbot-ia-vocal-texte/index.html">23 — Créer un chatbot IA vocal/texte pour ses clients · Phase 5</option>
+        <option value="../seance-24-evaluation-finale/index.html">24 — Évaluation finale · Phase 6</option>
+      </select>
+    </div>
+    <nav class="denem-act-ribbon__phase-nav" aria-label="Navigation dans la phase">
+      <strong>Dans cette phase</strong>
+      <a href="../DENEMACADEMY-SEANCE-1-CLAUDE-CODE/index.html">01 · Claude Code</a>
+      <a class="is-current" aria-current="page" href="#top">02 · Codex</a>
+      <a href="../seance-03-n8n/index.html">03 · n8n</a>
+      <a href="../seance-04-cowork/index.html">04 · Claude Cowork</a>
+      <a href="../formation-seance-06-qg-cowork/index.html">05 · QG Cowork</a>
+    </nav>
   </div>
 </section>
 
@@ -1175,7 +1391,7 @@ blockquote span:not(.num):not(.badge),
         <nav class="flex flex-wrap items-center justify-between gap-4">
           <a href="#top" class="flex items-center gap-3 no-underline">
             <img class="h-12 w-12 border-2 border-slate-950 object-cover shadow-neo-sm" src="logo-denem.jpeg" alt="Logo Denem Academy">
-            <span class="border-2 border-slate-950 bg-white px-3 py-2 font-mono text-xs font-black uppercase tracking-[.16em] text-slate-950 shadow-neo-sm">Denem Academy · Séance 2</span>
+            <span class="border-2 border-slate-950 bg-white px-3 py-2 font-mono text-xs font-black uppercase tracking-[.16em] text-slate-950 shadow-neo-sm">Denem Academy · Séance 02</span>
           </a>
           <div class="flex flex-wrap gap-2"><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-01">Comprendre</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-11">Accès</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-21">Cadre</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-31">Codex</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-41">Claude Code</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-51">Comparer</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-61">Décider</a><a class="nav-chip border-2 border-slate-950 bg-white px-3 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 no-underline shadow-neo-sm transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white" href="#section-71">Livrer</a></div>
         </nav>
@@ -1218,49 +1434,49 @@ Vérifie mobile et résume les fichiers modifiés.</code></pre>
         </div>
         <div class="grid gap-4 md:grid-cols-2">
           <a href="#section-01" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-blue-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 01 · Comprendre</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 01 · Comprendre</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Comprendre Codex</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette première partie pose les bases : ce qu’est Codex, à quoi il sert, et pourquoi on ne l’utilise pas exactement comme Claude Code.</p>
           </a>
         
           <a href="#section-11" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-violet-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 02 · Interface</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 02 · Interface</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Découvrir l’interface Codex</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie explique l’écran Codex : accueil, message, projet, modèle, accès, mode de raisonnement, historique et paramètres.</p>
           </a>
         
           <a href="#section-21" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-cyan-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 03 · Terminal</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 03 · Terminal</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Installer Codex en terminal</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie explique pourquoi et comment utiliser Codex CLI dans un dossier local, avec les commandes officielles et les bons contrôles.</p>
           </a>
         
           <a href="#section-31" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-cyan-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 04 · CLI</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 04 · CLI</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Bien utiliser Codex CLI</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie montre comment parler au CLI : plan, lecture, mission précise, diff, commandes, tests, Git et résumé.</p>
           </a>
         
           <a href="#section-41" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-emerald-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 05 · Projet</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 05 · Projet</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Travailler sur un projet</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie met Codex dans un vrai dossier : règles, AGENTS.md, petite modification, vérification, revue et livraison.</p>
           </a>
         
           <a href="#section-51" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-orange-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 06 · Plugiciels</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 06 · Plugiciels</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Plugiciels Codex</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie explique les plugiciels : à quoi ils servent, comment les choisir, et quand les éviter.</p>
           </a>
         
           <a href="#section-61" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-violet-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 07 · Automatiser</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 07 · Automatiser</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Automatisations Codex</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette partie explique les automatisations : quand elles servent, comment les cadrer et pourquoi il faut les vérifier avant de les laisser tourner.</p>
           </a>
         
           <a href="#section-71" class="group border-2 border-slate-950 bg-white p-5 no-underline shadow-neo-sm transition hover:-translate-y-1 hover:bg-emerald-50">
-            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Acte 08 · Comparer</p>
+            <p class="font-mono text-[11px] font-black uppercase tracking-[.16em] text-slate-500">Partie 08 · Comparer</p>
             <h3 class="mt-3 text-xl font-black leading-7 text-slate-950">Codex vs Claude Code</h3>
             <p class="mt-3 text-sm leading-6 text-slate-700">Cette dernière partie compare sans répéter : app Codex, terminal Codex, Claude Code, usage combiné et routine finale.</p>
           </a>
@@ -1275,7 +1491,7 @@ Vérifie mobile et résume les fichiers modifiés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">01</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -1329,7 +1545,7 @@ Vérifie mobile et résume les fichiers modifiés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">02</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -1371,7 +1587,7 @@ Vérifie mobile et résume les fichiers modifiés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">03</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -1430,7 +1646,7 @@ Quand il faut modifier un fichier ou relire un diff, pensez Codex plutôt qu’u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">04</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -1484,7 +1700,7 @@ Quand il faut modifier un fichier ou relire un diff, pensez Codex plutôt qu’u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">05</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -1534,7 +1750,7 @@ Quand il faut modifier un fichier ou relire un diff, pensez Codex plutôt qu’u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">06</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -1578,7 +1794,7 @@ Vous savez refuser ou réduire une proposition trop large.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">07</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -1624,7 +1840,7 @@ Vous savez refuser ou réduire une proposition trop large.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">08</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -1666,7 +1882,7 @@ Vous savez refuser ou réduire une proposition trop large.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">09</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -1725,7 +1941,7 @@ Si une section semble abstraite, rattachez-la à cette question : où est-ce que
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">10</span>
         <span class="bg-blue-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comprendre</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 1 - Comprendre Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 1 - Comprendre Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -1779,7 +1995,7 @@ Si une section semble abstraite, rattachez-la à cette question : où est-ce que
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">11</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -1829,7 +2045,7 @@ Si une section semble abstraite, rattachez-la à cette question : où est-ce que
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">12</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -1873,7 +2089,7 @@ Codex répond sans partir directement dans une modification.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">13</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -1919,7 +2135,7 @@ Codex répond sans partir directement dans une modification.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">14</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -1961,7 +2177,7 @@ Codex répond sans partir directement dans une modification.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">15</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -2020,7 +2236,7 @@ Fast sert à gagner du temps, pas à sauter la relecture.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">16</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -2074,7 +2290,7 @@ Fast sert à gagner du temps, pas à sauter la relecture.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">17</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -2124,7 +2340,7 @@ Fast sert à gagner du temps, pas à sauter la relecture.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">18</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -2168,7 +2384,7 @@ Vous ne reprenez pas une ancienne session par accident.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">19</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -2214,7 +2430,7 @@ Vous ne reprenez pas une ancienne session par accident.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">20</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Interface</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 2 - Découvrir l’interface Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 2 - Découvrir l’interface Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -2256,7 +2472,7 @@ Vous ne reprenez pas une ancienne session par accident.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">21</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -2315,7 +2531,7 @@ Le terminal n’est pas obligatoire pour tout, mais il est très efficace dans u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">22</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -2369,7 +2585,7 @@ Le terminal n’est pas obligatoire pour tout, mais il est très efficace dans u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">23</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -2419,7 +2635,7 @@ Le terminal n’est pas obligatoire pour tout, mais il est très efficace dans u
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">24</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -2463,7 +2679,7 @@ Le terminal reconnaît la commande Codex.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">25</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -2509,7 +2725,7 @@ Le terminal reconnaît la commande Codex.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">26</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -2551,7 +2767,7 @@ Le terminal reconnaît la commande Codex.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">27</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -2618,7 +2834,7 @@ Avant chaque session terminal, vérifiez le nom du dossier.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">28</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -2672,7 +2888,7 @@ Avant chaque session terminal, vérifiez le nom du dossier.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">29</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -2722,7 +2938,7 @@ Avant chaque session terminal, vérifiez le nom du dossier.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">30</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Terminal</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 3 - Installer Codex en terminal</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 3 - Installer Codex en terminal</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -2766,7 +2982,7 @@ Vous pouvez revenir à l’état initial si Codex change trop de choses.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">31</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -2812,7 +3028,7 @@ Vous pouvez revenir à l’état initial si Codex change trop de choses.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">32</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -2854,7 +3070,7 @@ Vous pouvez revenir à l’état initial si Codex change trop de choses.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">33</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -2913,7 +3129,7 @@ Une phrase précise évite dix corrections derrière.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">34</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -2967,7 +3183,7 @@ Une phrase précise évite dix corrections derrière.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">35</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -3017,7 +3233,7 @@ Une phrase précise évite dix corrections derrière.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">36</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -3061,7 +3277,7 @@ Vous savez ce que vous autorisez.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">37</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -3107,7 +3323,7 @@ Vous savez ce que vous autorisez.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">38</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -3149,7 +3365,7 @@ Vous savez ce que vous autorisez.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">39</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -3208,7 +3424,7 @@ Refuser tôt coûte moins cher que corriger tard.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">40</span>
         <span class="bg-cyan-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">CLI</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 4 - Bien utiliser Codex CLI</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 4 - Bien utiliser Codex CLI</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -3262,7 +3478,7 @@ Refuser tôt coûte moins cher que corriger tard.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">41</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -3312,7 +3528,7 @@ Refuser tôt coûte moins cher que corriger tard.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">42</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -3356,7 +3572,7 @@ Codex peut comprendre le projet sans deviner.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">43</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -3402,7 +3618,7 @@ Codex peut comprendre le projet sans deviner.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">44</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -3444,7 +3660,7 @@ Codex peut comprendre le projet sans deviner.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">45</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -3503,7 +3719,7 @@ Petite action, preuve visible, puis seulement ensuite tâche plus large.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">46</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -3557,7 +3773,7 @@ Petite action, preuve visible, puis seulement ensuite tâche plus large.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">47</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -3607,7 +3823,7 @@ Petite action, preuve visible, puis seulement ensuite tâche plus large.</code><
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">48</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -3651,7 +3867,7 @@ La revue produit une liste courte et actionnable.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">49</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -3697,7 +3913,7 @@ La revue produit une liste courte et actionnable.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">50</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Projet</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 5 - Travailler sur un projet</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 5 - Travailler sur un projet</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -3739,7 +3955,7 @@ La revue produit une liste courte et actionnable.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">51</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -3798,7 +4014,7 @@ Un plugiciel activé doit servir un besoin réel.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">52</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -3852,7 +4068,7 @@ Un plugiciel activé doit servir un besoin réel.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">53</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -3902,7 +4118,7 @@ Un plugiciel activé doit servir un besoin réel.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">54</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -3954,7 +4170,7 @@ Codex ne mélange pas une tâche code avec des messages privés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">55</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -4000,7 +4216,7 @@ Codex ne mélange pas une tâche code avec des messages privés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">56</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -4042,7 +4258,7 @@ Codex ne mélange pas une tâche code avec des messages privés.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">57</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -4101,7 +4317,7 @@ Ne demandez jamais un résumé général de tout un espace sans raison précise.
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">58</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -4155,7 +4371,7 @@ Ne demandez jamais un résumé général de tout un espace sans raison précise.
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">59</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -4205,7 +4421,7 @@ Ne demandez jamais un résumé général de tout un espace sans raison précise.
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">60</span>
         <span class="bg-orange-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Plugiciels</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 6 - Plugiciels Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 6 - Plugiciels Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -4249,7 +4465,7 @@ Le plugiciel utilisé a une vraie raison.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">61</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -4295,7 +4511,7 @@ Le plugiciel utilisé a une vraie raison.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">62</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -4337,7 +4553,7 @@ Le plugiciel utilisé a une vraie raison.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">63</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -4396,7 +4612,7 @@ Un bon bilan a peu de rubriques et des actions claires.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">64</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -4450,7 +4666,7 @@ Un bon bilan a peu de rubriques et des actions claires.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">65</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -4500,7 +4716,7 @@ Un bon bilan a peu de rubriques et des actions claires.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">66</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -4544,7 +4760,7 @@ La demande contient fréquence, source et format.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">67</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -4590,7 +4806,7 @@ La demande contient fréquence, source et format.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">68</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -4632,7 +4848,7 @@ La demande contient fréquence, source et format.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">69</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -4691,7 +4907,7 @@ Ne laissez pas tourner ce que vous n’avez pas relu au moins une fois.</code></
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">70</span>
         <span class="bg-violet-600 text-white border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Automatiser</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 7 - Automatisations Codex</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 7 - Automatisations Codex</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -4745,7 +4961,7 @@ Ne laissez pas tourner ce que vous n’avez pas relu au moins une fois.</code></
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">71</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -4795,7 +5011,7 @@ Ne laissez pas tourner ce que vous n’avez pas relu au moins une fois.</code></
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">72</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -4839,7 +5055,7 @@ L’app est choisie pour une raison précise.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">73</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -4885,7 +5101,7 @@ L’app est choisie pour une raison précise.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">74</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -4927,7 +5143,7 @@ L’app est choisie pour une raison précise.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">75</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="overflow-hidden border-2 border-slate-950 bg-white shadow-neo">
@@ -4986,7 +5202,7 @@ Une revue utile ne réécrit pas tout.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">76</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-start">
@@ -5040,7 +5256,7 @@ Une revue utile ne réécrit pas tout.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">77</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
@@ -5090,7 +5306,7 @@ Une revue utile ne réécrit pas tout.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">78</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="border-2 border-slate-950 bg-white shadow-neo">
@@ -5134,7 +5350,7 @@ Les deux outils ne modifient pas la même chose en même temps.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">79</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
@@ -5180,7 +5396,7 @@ Les deux outils ne modifient pas la même chose en même temps.</code></pre>
       <div class="mb-6 flex flex-wrap items-center gap-3">
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">80</span>
         <span class="bg-emerald-100 text-slate-950 border-2 border-slate-950 px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] shadow-neo-sm">Comparer</span>
-        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Acte 8 - Codex vs Claude Code</span>
+        <span class="border-2 border-slate-950 bg-white px-3 py-1 font-mono text-xs font-black uppercase tracking-[.14em] text-slate-700 shadow-neo-sm">Partie 8 - Codex vs Claude Code</span>
       </div>
     
       <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
@@ -5486,5 +5702,27 @@ Les deux outils ne modifient pas la même chose en même temps.</code></pre>
 })();
 </script>
 
+<script id="denem-session-media-script">
+(() => {
+  const select = document.getElementById('denem-session-switch');
+  if (select) {
+    select.addEventListener('change', () => {
+      const value = select.value;
+      if (value && value !== '#top') window.location.href = value;
+    });
+  }
+  const markMissing = (img) => {
+    const frame = img.closest('figure, .media-card, .shot, .visual, .hero-card, .poster, .image-card, .screen, .capture');
+    if (!frame) return;
+    frame.classList.add('is-media-missing');
+    frame.setAttribute('aria-label', 'Bloc media a completer');
+  };
+  document.querySelectorAll('img').forEach((img) => {
+    if (!img.getAttribute('src')) markMissing(img);
+    if (img.complete && img.naturalWidth === 0) markMissing(img);
+    img.addEventListener('error', () => markMissing(img), { once: true });
+  });
+})();
+</script>
 </body>
 </html>
